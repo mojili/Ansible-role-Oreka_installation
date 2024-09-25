@@ -49,7 +49,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_ITRC-LOCAL-TSDB}",
+          "datasource": "${DS_ABCD-LOCAL-TSDB}",
           "fill": 1,
           "id": 8,
           "legend": {
@@ -153,7 +153,7 @@
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_ITRC-LOCAL-TSDB}",
+          "datasource": "${DS_ABCD-LOCAL-TSDB}",
           "fill": 1,
           "id": 12,
           "legend": {
@@ -240,7 +240,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_ITRC-LOCAL-TSDB}",
+          "datasource": "${DS_ABCD-LOCAL-TSDB}",
           "fill": 1,
           "id": 2,
           "legend": {
@@ -332,7 +332,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_ITRC-LOCAL-TSDB}",
+          "datasource": "${DS_ABCD-LOCAL-TSDB}",
           "description": "MBSco ovirt server",
           "fill": 1,
           "id": 6,
@@ -438,7 +438,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_ITRC-LOCAL-TSDB}",
+          "datasource": "${DS_ABCD-LOCAL-TSDB}",
           "fill": 1,
           "hideTimeOverride": false,
           "id": 4,
@@ -547,7 +547,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_ITRC-LOCAL-TSDB}",
+          "datasource": "${DS_ABCD-LOCAL-TSDB}",
           "fill": 1,
           "id": 13,
           "legend": {
@@ -653,7 +653,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_ITRC-LOCAL-TSDB}",
+          "datasource": "${DS_ABCD-LOCAL-TSDB}",
           "fill": 1,
           "id": 14,
           "legend": {
@@ -759,7 +759,7 @@
       {
         "allValue": "",
         "current": {},
-        "datasource": "${DS_ITRC-LOCAL-TSDB}",
+        "datasource": "${DS_ABCD-LOCAL-TSDB}",
         "hide": 0,
         "includeAll": true,
         "label": "Server Name",
@@ -861,7 +861,7 @@
       {
         "allValue": "",
         "current": {},
-        "datasource": "${DS_ITRC-LOCAL-TSDB}",
+        "datasource": "${DS_ABCD-LOCAL-TSDB}",
         "hide": 2,
         "includeAll": true,
         "label": "Instance Name",
@@ -881,7 +881,7 @@
       {
         "allValue": "",
         "current": {},
-        "datasource": "${DS_ITRC-LOCAL-TSDB}",
+        "datasource": "${DS_ABCD-LOCAL-TSDB}",
         "hide": 2,
         "includeAll": true,
         "label": "cpu usage type",
@@ -901,7 +901,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_ITRC-LOCAL-TSDB}",
+        "datasource": "${DS_ABCD-LOCAL-TSDB}",
         "hide": 2,
         "includeAll": false,
         "label": "legend server name",
@@ -998,7 +998,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_ITRC-LOCAL-TSDB}",
+        "datasource": "${DS_ABCD-LOCAL-TSDB}",
         "hide": 0,
         "includeAll": true,
         "label": null,
@@ -1018,7 +1018,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_ITRC-LOCAL-TSDB}",
+        "datasource": "${DS_ABCD-LOCAL-TSDB}",
         "hide": 2,
         "includeAll": false,
         "label": null,
@@ -1038,7 +1038,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_ITRC-LOCAL-TSDB}",
+        "datasource": "${DS_ABCD-LOCAL-TSDB}",
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -1087,6 +1087,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "ITRC Copy",
+  "title": "ABCD Copy",
   "version": 1
 }
