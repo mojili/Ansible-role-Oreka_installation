@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CENTER_ADDR=$1
+
+sed -i '/^CENTER_IP/d' /var/www/orkweb/.env ; echo "CENTER_IP=$1" >> /var/www/orkweb/.env
