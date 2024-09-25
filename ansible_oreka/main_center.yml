@@ -25,7 +25,7 @@
 
   tasks:
  
-    - include: "{{ yamls_path }}/railway_center.yml"
+    - include: "{{ yamls_path }}/center.yml"
       
 
 
