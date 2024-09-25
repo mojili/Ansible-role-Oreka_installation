@@ -1,6 +1,6 @@
-[mbsco]
-name=MBSCo's offline Repository
-baseurl="http://10.8.0.84/offlineRepo/"
+[repo]
+name=x's offline Repository
+baseurl="http://a.b.c.d/offlineRepo/"
 enabled=1
 gpgcheck=0
 
