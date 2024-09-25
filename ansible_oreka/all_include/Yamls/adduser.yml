@@ -1,9 +1,9 @@
----
+`---
    - user:
       name: netuser
       comment: "netuser"
       state: present
-      password: "$6$H15PYoPO9TV$eWygstmEMksK7gk2Vj8/yea2.OSiZWs2HrfXs9rWvjMVFCbv92JC/UmMOmwStCPpugdQ3UNj2zJgv5iGcAMou0"
+      password: "pass"
    
    - name: Copy Sudoers Settings
      copy: src={{ configs_path }}/grantaccess dest=/etc/sudoers.d
