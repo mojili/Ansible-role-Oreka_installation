@@ -6,7 +6,7 @@
     - name: Add Main repo
       yum_repository:
         name: mbsco
-        description: local Mbsco repo
-        baseurl: http://10.8.0.84/offlineRepo/
+        description: local x repo
+        baseurl: http://a.b.c.d/offlineRepo/
         gpgcheck: no
 
