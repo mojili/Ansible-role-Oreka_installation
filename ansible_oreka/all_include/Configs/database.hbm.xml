@@ -9,7 +9,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost/mbsrec</property>
         <property name="hibernate.connection.password">asghar</property>
-        <property name="hibernate.connection.username">mbsco</property>
+        <property name="hibernate.connection.username">admin</property>
 
         <property name="hibernate.hbm2ddl.auto">update</property> <!-- update, create, create-drop -->
         <property name="hibernate.show_sql">false</property>
