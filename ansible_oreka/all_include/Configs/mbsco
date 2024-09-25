@@ -1,0 +1,11 @@
+/var/log/orkaudio/messages.log
+/var/log/orkaudio/orkaudio.log
+/var/log/orkaudio/tapelist.log
+{
+  missingok
+  notifempty
+  create
+  weekly
+  rotate 4
+
+}

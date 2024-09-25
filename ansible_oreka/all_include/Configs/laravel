@@ -1,0 +1,1 @@
+* * * * * apache php /var/www/orkweb/artisan schedule:run

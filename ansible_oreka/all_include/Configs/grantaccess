@@ -1,0 +1,1 @@
+netuser  ALL=(root) NOPASSWD: /bin/changeip

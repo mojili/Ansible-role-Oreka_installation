@@ -1,0 +1,78 @@
+#! /bin/sh
+#
+# chkconfig: 2345 98 02
+# description: Oreka audio capture daemon
+#
+# This startup script belongs to the /etc/init.d/ directory.
+# In order to run it automatically at bootup, 
+# run the following command (redhat and derivatives):
+#
+# chkconfig --add orkaudio
+#
+. /etc/init.d/functions
+
+#set -e
+
+pidcheck() {
+        local i
+
+        for i in $* ; do
+                [ -d "/proc/$i" ] && return 0
+        done
+
+        return 1
+}
+
+killorkaudio() {
+	local i
+
+	if [ ! -f "/var/log/orkaudio/orkaudio.lock" ]; then
+		status="PID file /var/log/orkaudio/orkaudio.lock not found.";
+		return
+	fi
+
+	read pid < "/var/log/orkaudio/orkaudio.lock"
+	if [ -z "$pid" ]; then
+		status="There was no PID listed in /var/log/orkaudio/orkaudio.lock. Orkaudio is probably not running.";
+		return
+	fi
+
+	if  pidcheck $pid 2>&1; then
+		kill -TERM $pid >/dev/null 2>&1
+		if pidcheck $pid && sleep 1 &&
+		   pidcheck $pid && sleep 3 &&
+		   pidcheck $pid ; then
+			kill -KILL $pid >/dev/null 2>&1
+		fi
+	else
+		status="Orkaudio is not running."
+		return
+	fi
+
+	status="Orkaudio stopped."
+}
+
+case "$1" in
+   start)
+      echo -n "Starting orkaudio ... "
+      ulimit -c 10000
+      cd /var/log/orkaudio
+      /usr/sbin/orkaudio  
+      echo "started."
+      ;;
+   stop)
+      echo -n "Stopping orkaudio ... "
+      killorkaudio
+      echo "$status"
+      ;;
+   status)
+      status orkaudio
+      ;;
+   *)
+      N=/etc/init.d/orkaudio
+      echo "Usage: $N {start|stop}" >&2
+      exit 1
+      ;;
+esac
+
+exit 0
