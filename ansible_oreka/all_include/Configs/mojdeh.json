@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_ITRC-LOCAL-TSDB",
+      "name": "DS_ABCD-LOCAL-TSDB",
       "label": "itrc-local-tsdb",
       "description": "",
       "type": "datasource",
