@@ -1,0 +1,41 @@
+---
+#################################################### General Packages Installation ##################################################################
+
+    - name: Install Basic-Main Packages
+      yum: name={{ item }} state=present
+      with_items:
+        - vim-enhanced
+        - httpd
+        - perl
+        - php-common
+        - perl-DBD-MySQL
+        - perl-DBI
+        - php
+        - php-json
+        - php-ldap
+        - php-cli
+        - php-pdo
+        - php-mbstring
+        - php-zip
+        - php-xml
+        - php-fpm
+        - mysql-server
+        - mtr
+        - ntp
+        - tcpdump
+        - wget
+        - telnet
+        - sysstat
+        - libpcap
+        - boost
+        - libsndfile
+        - apr
+        - apr-util
+        - php-mysqlnd
+        - MySQL-python
+        - unzip
+        - xz-lzma-compat
+        - python-paramiko
+        - tcpreplay  
+        - rsync
+          

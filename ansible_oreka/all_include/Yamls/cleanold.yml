@@ -1,0 +1,48 @@
+---
+    - name: Check if this is an old Server
+      stat:
+        path: /etc/yum.repos.d/shenava.repo
+      register: stat_result
+
+    - name: Clear Old server
+      shell: cd /var/www/html ; find . \! -name 'Audio' -delete
+      when: stat_result.stat.exists  == true
+
+    - name: Remove php packages
+      shell: yum -y remove php*
+      when: stat_result.stat.exists  == true
+
+    - name: Remove ork packages
+      shell: yum -y remove ork*
+      when: stat_result.stat.exists  == true
+
+    - name: Remove zendguard File
+      file:
+        path: /etc/php.d/ZendGaurd.ini
+        state: absent
+      when: stat_result.stat.exists  == true
+
+    - name: Remove old root crontab
+      shell: crontab -u root -r
+      when: stat_result.stat.exists  == true
+      ignore_errors: yes
+
+    - name: clean /
+      shell: rm -rf /control_patcher.1* &&  rm -rf /control_patcher.2* && rm -rf /control_patcher.3* &&  rm -rf /control_patcher.[4-9]* && rm -rf /control_patcher*
+
+
+      #    - name: Find control_patcher Files
+      #      find:
+      #        paths: /
+      #        file_type: file
+      #        patterns: "control_patcher*"
+      #      register: find_result
+      #
+      #    - name: Remove control_patcher Files
+      #      file:
+      #        path: "{{ item.path }}"
+      #        state: absent
+      #      with_items: "{{ find_result.files }}"
+      #
+      
+

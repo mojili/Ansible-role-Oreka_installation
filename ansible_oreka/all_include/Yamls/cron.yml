@@ -1,0 +1,5 @@
+---
+   - name: Copy Cron Schedule
+     copy: src={{ configs_path }}/laravel dest=/etc/cron.d/
+
+ 

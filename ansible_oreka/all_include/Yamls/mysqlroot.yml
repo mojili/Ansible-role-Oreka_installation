@@ -1,0 +1,6 @@
+---
+
+    - mysql_user:
+        name: root
+        password: MbscoOrk@2017
+        host: localhost

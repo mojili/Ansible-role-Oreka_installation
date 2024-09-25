@@ -1,0 +1,26 @@
+---
+   - user:
+      name: netuser
+      comment: "netuser"
+      state: present
+      password: "$6$H15PYoPO9TV$eWygstmEMksK7gk2Vj8/yea2.OSiZWs2HrfXs9rWvjMVFCbv92JC/UmMOmwStCPpugdQ3UNj2zJgv5iGcAMou0"
+   
+   - name: Copy Sudoers Settings
+     copy: src={{ configs_path }}/grantaccess dest=/etc/sudoers.d
+
+   - name: Copy script
+     copy: 
+       src: "{{ scripts_path }}/changeip" 
+       dest: /bin/
+       owner: root
+       group: root
+       mode: 0755
+   
+   - name: Copy center script
+     copy:
+       src: "{{ scripts_path }}/centerip"
+       dest: /bin/
+       owner: root
+       group: root
+       mode: 0755
+   

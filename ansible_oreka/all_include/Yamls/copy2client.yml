@@ -1,0 +1,14 @@
+---
+
+
+    - name: Copy sync script
+      copy:
+       src: "{{ scripts_path }}/sync.sh"
+       dest: /bin/
+       owner: root
+       group: root
+       mode: 0755
+
+
+
+

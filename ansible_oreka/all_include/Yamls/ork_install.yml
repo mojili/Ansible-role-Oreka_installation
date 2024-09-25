@@ -1,0 +1,110 @@
+---
+
+##################################################################################################### oreka Installation ##########################################################################################
+
+    - name: Create Source Path
+      file:
+        path: /root/source
+        state: directory
+        mode: 0775
+
+    - name: Copy orkaweb Installation Script
+      copy: src={{ scripts_path }}/orkweb-1.7-838-x64-os-linux-installer.sh dest=/root/source
+
+    - name: Modify "orkweb.sh" Attribute
+      file:
+        path: /root/source/orkweb-1.7-838-x64-os-linux-installer.sh
+        owner: root
+        group: root
+        mode: 0775
+
+    - name: Install orkweb
+      shell: cd /root/source ; printf  '\n\nmbsrec\nmbsco\nasghar\nasghar\ny\n\ny\n\ny\ny\n' | ./orkweb-1.7-838-x64-os-linux-installer.sh
+
+    - name: Copy orkweb DB Config
+      copy: src={{ configs_path }}/database.hbm.xml   dest=/etc/orkweb
+
+    - name: Copy orkaudio Installation Script
+      copy: src={{ scripts_path }}/orkaudio-1.7-844.x86_64-x-x86_64.centos6-installer.sh dest=/root/source
+ 
+    - name: Modify "orkaudio.sh" Attribute
+      file:
+        path: /root/source/orkaudio-1.7-844.x86_64-x-x86_64.centos6-installer.sh
+        owner: root
+        group: root
+        mode: 0775
+
+    - name: Install orkaudio
+      shell: cd /root/source ; printf 'i\n\nl\n' | ./orkaudio-1.7-844.x86_64-x-x86_64.centos6-installer.sh
+ 
+      
+    - name: Remove orkaudio
+      yum: name=orkaudio state=absent
+
+    - name: Install orkaudio Newer Version
+      yum: name=orkaudio state=present
+
+            
+    - name: Copy orkaudio Configuration File
+      copy: src={{ configs_path }}/config.xml dest=/etc/orkaudio
+
+    - name: Copy orkaudio service file
+      copy:
+        src: "{{ configs_path }}/orkaudio"
+        dest: /etc/init.d/
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Copy localparty mapping file
+      copy: src={{ configs_path }}/localparty.csv dest=/etc/orkaudio
+        
+    - name: Start orkaudio Service
+      service: name=orkaudio enabled=yes state=started
+
+    - name: Tomcat Service Start
+      service: name=tomcat enabled=yes state=started
+
+    - name: Create Audio Directory
+      file: 
+        path: /var/www/html/Audio/ 
+        state: directory
+        owner: tomcat
+        group: tomcat
+        recurse: yes
+        mode: 0775
+ 
+    - name: Create Symlink to Audio
+      file:
+        src: /var/www/html/Audio/
+        dest: "{{ doc_root }}/storage/app/public/audio"
+        state: link 
+      
+    - name: Storage link
+      shell: cd /var/www/orkweb ; php artisan storage:link
+
+    - name: Copy orkweb Apache Configuration File
+      copy: src={{ configs_path }}/orkaweb.conf dest=/etc/httpd/conf.d/
+
+    - name: Httpd Service Restart
+      service: name=httpd  enabled=yes state=restarted
+
+    - name: Remove Source Path 
+      file:
+        path: /root/source
+        state: absent
+
+        #    - name: Remove Repository 
+        #      file:
+        #        path: /etc/yum.repos.d/mbsco.repo
+        #        state: absent
+        #
+        #
+
+
+
+
+
+
+
+

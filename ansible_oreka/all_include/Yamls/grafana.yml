@@ -1,0 +1,69 @@
+---
+
+    - name: Install Grafana Packages
+      yum: name=grafana state=present
+
+    - name: Copy Gragana Config File
+      copy: src={{ configs_path }}/grafana.ini dest=/etc/grafana
+
+    - name: Grafana Service Start
+      service: name=grafana-server enabled=yes state=started
+
+    - name: Copy script
+      copy:
+        src: "{{ scripts_path }}/grafana.sh"
+        dest: /tmp/
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Create Datasource
+      shell: cd /tmp ; ./grafana.sh 
+      register: task_result
+      until: task_result.rc == 200
+      retries: 4
+      delay: 1
+      ignore_errors: yes
+        
+      # shell: "curl --user admin:admin 'http://127.0.0.1:3000/api/datasources' -X  POST -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"Local Prometheus","isDefault":true,"type":"prometheus","url":"http://localhost:9090","access":"proxy","basicAuth":false}'\"
+    
+      #    - name: login 
+      #      shell: curl --user admin:admin 'http://127.0.0.1:3000/api/datasources'
+      #
+      #    - name: Create Datasource
+      #      uri:
+      #       url: http://127.0.0.1:3000/api/datasources
+      #       method: POST
+      #       user: admin
+      #       password: "{{ password }}"
+      #       force_basic_auth: yes
+      #       headers:
+      #           Content-Type: "application/json;charset=UTF-8"
+      #       body_format: json
+      #       body: '{"name":"Local Prometheus","isDefault":true,"type":"prometheus","url":"http://localhost:9090","access":"proxy","basicAuth":false}'
+      #  
+   
+    - name: Copy Dashboard.json   
+      copy: 
+        src: "{{ configs_path }}/partyline.json"
+        dest: /tmp
+
+    - name: Import Dashboard.json
+      shell: curl --user admin:admin 'http://127.0.0.1:3000/api/dashboards/db' -X POST -H 'Content-Type:application/json;charset=UTF-8'  --data-binary @/tmp/partyline.json
+#      until: task_result.rc == 200
+#      retries: 4
+#      delay: 1
+#      ignore_errors: yes
+        
+    - name: Grafana Service Start
+      service: name=grafana-server enabled=yes state=started
+
+    - name: Remove json file
+      file:
+        path: /tmp/partyline.json 
+        state: absent
+      
+    - name: Remove Script
+      file:
+        path: /tmp/grafana.sh
+        state: absent

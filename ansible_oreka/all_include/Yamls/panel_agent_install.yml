@@ -1,0 +1,144 @@
+---
+######################################################################################## Panel Installation #######################################################################################################
+
+    - name: Copy Panel Files
+      copy: src={{ configs_path }}/orkweb.tar.lzma dest=/tmp
+
+    - name: Untar Panel Files
+      shell: cd /tmp ; tar -xf orkweb.tar.lzma -C /var/www/ 
+#      unarchive:
+#        src: /tmp/orkweb.tar.lzma
+#        dest: /var/www/
+#
+#    - name: Composer Download
+#      shell: cd /root ; curl -s https://getcomposer.org/installer |php
+
+#    - name: Move composer to bin
+#      shell: mv /root/composer.phar /usr/local/bin/composer
+
+#    - name: Change the path and composer install
+#      shell: cd /var/www/orkweb ; composer install
+
+
+    - name: Service mysqld Start
+      service: name=mysqld enabled=yes state=started
+
+    - include: "{{ yamls_path }}/mysqlroot.yml"
+      
+    - name: Copy Application Config File
+      template: src=templates/.env_agent.j2 dest={{ doc_root }}/.env
+
+    - name: Generate Application key
+      shell: cd /var/www/orkweb ; php artisan key:generate
+    
+    - name: Modify Attribute doc_root/storage 
+      file:
+        path: "{{ doc_root }}/storage/"
+        owner: apache
+        group: apache
+        recurse: yes
+        mode: 0775
+
+    - name: Modify Attribute doc_root/bootstrap
+      file:
+        path: "{{ doc_root }}/bootstrap/cache/"
+        owner: root
+        group: apache
+        recurse: yes
+        mode: 0775
+
+    - name: Install mysql-python
+      yum: name=MySQL-python state=present
+
+    - name: Copy sql Template File
+      copy: src={{ configs_path }}/oreka.sql dest=/tmp
+
+    - name: Create DB
+      mysql_db:
+        name: mbsrec
+        state: present
+        login_host: localhost
+        login_user: root
+        login_password: MbscoOrk@2017
+
+    - name: Import DB
+      mysql_db:
+        name: mbsrec
+        state: import
+        login_host: localhost
+        login_user: root
+        login_password: MbscoOrk@2017
+        target: /tmp/oreka.sql
+
+    - name: Create DB User
+      mysql_user:
+        name: mbsco
+        login_user: root
+        login_password: MbscoOrk@2017
+        password: asghar
+        host: localhost
+        priv: 'mbsrec.*:ALL,GRANT'
+        state: present
+        host: localhost
+
+    - name: Migrate DB
+      shell: cd /var/www/orkweb ; php artisan migrate
+
+    - name: Seed DB
+      shell: cd /var/www/orkweb ; php artisan db:seed
+
+    - name: Laravel Clear Cache 
+      shell: cd /var/www/orkweb ; php artisan cache:clear
+
+    - name: Remove Panel Zip File
+      file: 	
+        path: /tmp/orkweb.tar.lzma
+        state: absent
+
+    - name: Copy httpd.conf
+      copy: src={{ configs_path }}/httpd.conf dest=/etc/httpd/conf/
+
+    - name: Service httpd Start
+      service: name=httpd enabled=yes state=started
+
+    - name: Remove SQL Template File
+      file:
+        path: /tmp/oreka.sql
+        state: absent
+
+    - include: "{{ yamls_path }}/user_ssh_authorized_keys.yml"
+    - include: "{{ yamls_path }}/cron.yml"
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

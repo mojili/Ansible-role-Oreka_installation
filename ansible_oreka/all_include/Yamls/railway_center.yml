@@ -1,0 +1,36 @@
+---
+
+########################################################################################## Clean Old Server #######################################################################################################
+
+    - include: "{{ yamls_path }}/cleanold.yml"
+
+###################################################################################################################################################################################################################
+
+    - include: "{{ yamls_path }}/repos.yml"
+    - include: "{{ yamls_path }}/sec.yml"
+    - include: "{{ yamls_path }}/ntp-dns.yml"
+    - include: "{{ yamls_path }}/package.yml"
+    - include: "{{ yamls_path }}/collectd.yml"
+    - include: "{{ yamls_path }}/prome.yml"
+    - include: "{{ yamls_path }}/grafana.yml"
+    - include: "{{ yamls_path }}/snmp.yml"
+    - include: "{{ yamls_path }}/adduser.yml"
+ 
+######################################################################################## Panel Installation #######################################################################################################
+
+    - include: "{{ yamls_path }}/panel_center_install.yml"
+      
+    - name: Log Management1
+      copy: src={{ configs_path }}/tmpwatch1 dest=/etc/cron.d/
+
+    - name: Log Management2
+      copy: src={{ configs_path }}/mbsco dest=/etc/logrotate.d/
+
+    - name: Log Management3
+      copy: src={{ configs_path }}/tmpwatch2 dest=/etc/cron.d/
+
+
+
+
+
+

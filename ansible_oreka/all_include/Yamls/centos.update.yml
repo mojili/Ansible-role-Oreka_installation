@@ -1,0 +1,17 @@
+---
+    - name: Create Mount Point
+      file:
+              path: /root/:::
+        state: directory
+        mode: 0775
+
+
+      yum: name=grafana state=present
+
+    - name: Copy Gragana Config File
+      copy: src={{ configs_path }}/grafana.ini dest=/etc/grafana
+
+    - name: Grafana Service Start
+      service: name=grafana-server enabled=yes state=started
+
+

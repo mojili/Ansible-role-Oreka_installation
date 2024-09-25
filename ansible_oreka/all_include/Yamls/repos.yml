@@ -1,0 +1,12 @@
+---
+
+    - name: Disable all repos
+      shell: cd /etc/yum.repos.d ; for i in `ls *.repo` ; do mv $i $i.old  ; done
+
+    - name: Add Main repo
+      yum_repository:
+        name: mbsco
+        description: local Mbsco repo
+        baseurl: http://10.8.0.84/offlineRepo/
+        gpgcheck: no
+

@@ -1,0 +1,12 @@
+---
+
+    - name: Install prometheus packages
+      yum: name=prometheus state=present
+
+
+    - name: Copy prometheus Config File
+      copy: src={{ configs_path }}/prometheus.yaml dest=/etc/prometheus/
+
+    - name: Prometheus Service Start
+      service: name=prometheus enabled=yes state=started
+

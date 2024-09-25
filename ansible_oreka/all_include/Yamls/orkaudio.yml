@@ -1,0 +1,28 @@
+---
+    - name: Create Source Path
+      file:
+        path: /root/source
+        state: directory
+        mode: 0775
+
+    - name: Copy orkaudio Installation Script
+      copy: src={{ scripts_path }}/orkaudio-1.7-844.x86_64-x-x86_64.centos6-installer.sh dest=/root/source
+
+    - name: Modify "orkaudio.sh" Attribute
+      file:
+        path: /root/source/orkaudio-1.7-844.x86_64-x-x86_64.centos6-installer.sh
+        owner: root
+        group: root
+        mode: 0775
+
+    - name: Install orkaudio
+      shell: cd /root/source ; printf 'i\n\nl\n' | ./orkaudio-1.7-844.x86_64-x-x86_64.centos6-installer.sh
+
+       
+    - name: Remove orkaudio
+      yum: name=orkaudio state=absent
+
+    - name: Install orkaudio Newer Version
+      yum: name=orkaudio state=present
+
+ 

@@ -1,0 +1,27 @@
+---
+#################################################### DNS Configuration ################################################################
+
+    - name: Archive Main Resolve File
+      shell: cp -rap /etc/resolv.conf /etc/resolv.conf.bk
+
+    - name:  Copy New Resolve File
+      #      template: src=templates/resolv.conf.j2 dest=/etc/
+      shell: echo > /etc/resolv.conf
+
+#################################################### NTP Installation #################################################################
+    - name: Install ntp
+      yum: name=ntp state=present
+
+    - name: Copy ntp Config File
+      copy: src={{ configs_path }}/ntp.conf dest=/etc/
+
+    - name: Service ntpd Start
+      service: name=ntpd enabled=yes state=started
+
+
+#################################################### TimeZone  ########################################################################
+
+
+    - name: Timezone 
+      shell: cp /usr/share/zoneinfo/Asia/Tehran /etc/localtime
+

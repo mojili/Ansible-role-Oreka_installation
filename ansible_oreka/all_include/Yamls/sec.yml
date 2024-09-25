@@ -1,0 +1,19 @@
+---
+    - name: Install libselinux-python
+      yum: name=libselinux-python state=present
+      
+    - selinux:
+        state: disabled
+
+    - name: Disabling IPv6
+      blockinfile:
+        path: /etc/sysctl.conf
+        block: |
+          net.ipv6.conf.all.disable_ipv6 = 1
+          net.ipv6.conf.default.disable_ipv6 = 1
+          net.ipv6.conf.lo.disable_ipv6 = 1
+        insertafter: EOF
+
+    - name: Disable iptables Service
+      service: name=iptables enabled=no state=stopped
+
