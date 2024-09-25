@@ -31,7 +31,7 @@
 
   tasks:
 
-    - include: "{{ yamls_path }}/railway_agent.yml"
+    - include: "{{ yamls_path }}/agent.yml"
       
 
 
