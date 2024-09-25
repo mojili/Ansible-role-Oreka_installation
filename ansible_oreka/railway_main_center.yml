@@ -1,0 +1,34 @@
+---
+
+- hosts: "{{ variable_host | default('all') }}"
+  become: true
+  gather_facts: no
+
+  vars:
+    doc_root: /var/www/orkweb
+    configs_path: /home/IRW/all_include/Configs
+    yamls_path: /home/IRW/all_include/Yamls
+    scripts_path: /home/IRW/all_include/Scripts
+    user: admin
+    password: admin
+
+  vars_prompt:
+
+   - name: "station_name"
+     prompt: "Please Enter Center Name ?"
+     private: no
+
+   - name: "center_ip"
+     prompt: "Please Enter Center Ip address ?"
+     private: no
+     confirm: yes
+
+  tasks:
+ 
+    - include: "{{ yamls_path }}/railway_center.yml"
+      
+
+
+
+
+

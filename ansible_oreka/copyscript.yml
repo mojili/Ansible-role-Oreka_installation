@@ -1,0 +1,22 @@
+---
+
+- hosts: "{{ variable_host | default('all') }}"
+  become: true
+  gather_facts: no
+
+  vars:
+    doc_root: /var/www/orkweb
+    configs_path: /home/IRW/all_include/Configs
+    yamls_path: /home/IRW/all_include/Yamls
+    scripts_path: /home/IRW/all_include/Scripts
+    user: admin
+    password: admin
+
+
+  tasks:
+
+    - include: "{{ yamls_path }}/copy2client.yml"
+
+    - name: sync cron
+      copy: src={{ configs_path }}/sync dest=/etc/cron.d/
+

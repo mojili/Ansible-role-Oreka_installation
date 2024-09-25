@@ -1,0 +1,16 @@
+---
+
+- hosts: "{{ variable_host | default('all') }}"
+  become: true
+  gather_facts: no
+
+  tasks:
+     
+    - name: Install tmpwatch Package
+      yum: name=tmpwatch state=present
+      
+
+
+
+
+

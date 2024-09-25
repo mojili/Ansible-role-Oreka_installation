@@ -1,0 +1,32 @@
+---
+
+- hosts: "{{ variable_host | default('all') }}"
+  become: true
+  gather_facts: no
+
+  vars:
+    doc_root: /var/www/orkweb
+    configs_path: /home/IRW/all_include/Configs
+    yamls_path: /home/IRW/all_include/Yamls
+    scripts_path: /home/IRW/all_include/Scripts
+    user: admin
+    password: admin
+
+  tasks:
+
+    - name: copy scripts
+      copy:
+       src: "{{ scripts_path }}/update.sh"
+       dest: /var
+       owner: root
+       group: root
+       mode: 0755
+
+    - name: run the script
+      shell: cd /var ; ./update.sh
+
+    - name: Remove update.sh
+      file:
+        path: /var/update.sh
+        state: absent
+
