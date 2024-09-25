@@ -1,0 +1,21 @@
+#!/bin/bash
+
+SERVER_NAME=$1
+echo "Enter the station type?(center/agent)"
+read type
+
+case "$type" in
+
+	"agent")
+           ansible-playbook -i /tmp/hosts /home/mojili/Documents/MBScoProjects/Railway/IRW/railway_main_agent.yml --extra-vars "variable_host=$1"
+        ;;
+        "center")
+	   ansible-playbook -i /tmp/hosts /home/mojili/Documents/MBScoProjects/Railway/IRW/railway_main_center.yml --extra-vars "variable_host=$1"
+     	;;
+
+        *)
+	  echo "value is not match center or agent, run the program once again with correct value."
+	;;
+
+esac
+

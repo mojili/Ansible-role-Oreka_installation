@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SERVER_NAME=$1
+SERVER_IP=$2
+USERNAME=root
+PASSWORD=$3
+
+echo "$1 ansible_ssh_host=$2 ansible_ssh_user=$USERNAME ansible_ssh_pass=$3" > /tmp/hosts
